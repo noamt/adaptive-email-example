@@ -1,0 +1,271 @@
+{
+  "classification": {
+    "workspace": "ContractView",
+    "rationale": "The thread is fundamentally about a versioned contract artifact (the Hartwell MSA) with substantive redlines across multiple attachments, including active unresolved clause negotiations on indemnification cap and data residency. Per prefer_document_over_thread_when_redlines_present, the document workspace is the correct surface; open items (indemnification cap, data residency, TFC wind-down trigger) are tracked per surface_open_items_at_top and extract_blockers_with_owners, and counterparty's last ask (Priya's 2x cap demand and Wednesday deadline) is surfaced per surface_counterparty_last_ask.",
+    "constraints_applied": [
+      "prefer_document_over_thread_when_redlines_present",
+      "never_auto_resolve_redlines",
+      "surface_open_items_at_top",
+      "surface_counterparty_last_ask",
+      "extract_blockers_with_owners"
+    ]
+  },
+  "state": {
+    "document_title": "Northwind–Hartwell Master Services Agreement",
+    "current_version": 4,
+    "parties": [
+      {
+        "name": "Northwind AI",
+        "role": "Vendor / Service Provider"
+      },
+      {
+        "name": "Hartwell Industries",
+        "role": "Customer"
+      }
+    ],
+    "top_actions": [
+      {
+        "title": "Indemnification cap — Northwind position needed",
+        "detail": "Hartwell is pushing for 2x annual fees; Northwind offered 1.5x but has not confirmed a final position, and Priya requested a response by Wednesday 2026-04-29.",
+        "owner": "Sarah Chen",
+        "due": "2026-04-29"
+      },
+      {
+        "title": "Confirm §6.4(c) backup language reads correctly",
+        "detail": "Priya incorporated encrypted-at-rest / region-locked backup text in v4 and asked Northwind to verify it is accurate before the clause can be closed.",
+        "owner": "Sarah Chen",
+        "due": null
+      },
+      {
+        "title": "Marcus to pull EU data-residency standard rider",
+        "detail": "Sarah committed to Marcus supplying the standard rider for region-locked backups; it has not yet appeared on the thread.",
+        "owner": "Marcus Webb",
+        "due": null
+      },
+      {
+        "title": "DPA Schedule C review",
+        "detail": "Priya attached a DPA (Schedule C) in v4 but no party has confirmed review or acceptance of its terms.",
+        "owner": "Sarah Chen",
+        "due": null
+      },
+      {
+        "title": "Quarter-end close deadline at risk",
+        "detail": "Tom flagged a quarter-end target; with the indemnification cap still open, procurement timelines are under pressure.",
+        "owner": "David Liu",
+        "due": null
+      }
+    ],
+    "clauses": [
+      {
+        "id": "sec-11-2-indemnification-cap",
+        "heading": "§11.2 Indemnification Cap",
+        "text": "The aggregate liability of either party for indemnification obligations shall not exceed 1.5 times the annual fees paid or payable in the twelve months preceding the claim, with carve-outs for IP infringement, willful breach, and breach of confidentiality.",
+        "redlines": [
+          {
+            "proposed_text": "The aggregate liability of either party for indemnification obligations shall not exceed 2 times the annual fees paid or payable in the twelve months preceding the claim, with agreed carve-outs for IP infringement and willful breach.",
+            "proposed_by": "Priya Raman (Hartwell)",
+            "status": "open",
+            "message_id": "c3"
+          },
+          {
+            "proposed_text": "The aggregate liability of either party for indemnification obligations shall not exceed 1.5 times the annual fees paid or payable in the twelve months preceding the claim, with carve-outs for IP infringement, willful breach, and breach of confidentiality.",
+            "proposed_by": "Sarah Chen (Northwind)",
+            "status": "open",
+            "message_id": "c4"
+          },
+          {
+            "proposed_text": "Reverting to 2x annual fees given regulated-data scope; Jennifer Hayes directing Priya to push back from the current 1.5x draft.",
+            "proposed_by": "Priya Raman (Hartwell) on behalf of Jennifer Hayes",
+            "status": "open",
+            "message_id": "c10"
+          }
+        ],
+        "comments": [
+          {
+            "author": "Priya Raman",
+            "text": "Hartwell standard for vendors handling regulated data requires 2x. Floor needs to move from 1x as originally drafted.",
+            "message_id": "c3"
+          },
+          {
+            "author": "Sarah Chen",
+            "text": "2x is outside Northwind policy band and would require board sign-off; 1.5x is the viable path given timing.",
+            "message_id": "c4"
+          },
+          {
+            "author": "Priya Raman",
+            "text": "1.5x is in the current v4 draft but Jennifer wants a push back to 2x given regulated-data scope. Requesting one more pass; position needed by Wednesday.",
+            "message_id": "c10"
+          },
+          {
+            "author": "Priya Raman",
+            "text": "Need to lock cap this week to keep procurement on track. Asking Sarah to respond by Wednesday.",
+            "message_id": "c11"
+          }
+        ]
+      },
+      {
+        "id": "sec-14-termination-for-convenience",
+        "heading": "§14 Termination for Convenience",
+        "text": "Either party may terminate this Agreement for convenience after the end of Year 1, upon 180 days' written notice. A wind-down fee equal to 50% of remaining committed fees shall apply, waived if termination is due to material and uncured service-level failures persisting for more than 30 days.",
+        "redlines": [
+          {
+            "proposed_text": "Either party may terminate this Agreement for convenience after the end of Year 1, upon 180 days' written notice, with a wind-down fee equal to 50% of remaining committed fees, waived in the event of documented service-level failures.",
+            "proposed_by": "Sarah Chen (Northwind)",
+            "status": "open",
+            "message_id": "c9"
+          },
+          {
+            "proposed_text": "Wind-down fee waiver trigger tightened to 'material and uncured' service-level failures lasting more than 30 days (replacing 'documented service-level failures').",
+            "proposed_by": "Priya Raman (Hartwell)",
+            "status": "open",
+            "message_id": "c10"
+          }
+        ],
+        "comments": [
+          {
+            "author": "Priya Raman",
+            "text": "No termination for convenience in original v3 draft — required for all net-new vendors at Hartwell. Notice period and wind-down fee are negotiable.",
+            "message_id": "c3"
+          },
+          {
+            "author": "Jennifer Hayes",
+            "text": "TFC is a hard requirement; held this posture with every vendor in the last 18 months. Flexible on notice period (90+ days) and reasonable wind-down fee.",
+            "message_id": "c8"
+          },
+          {
+            "author": "Priya Raman",
+            "text": "Accepted the post-Y1 / 180-day / 50%-wind-down structure proposed by Northwind, with the tightened waiver trigger incorporated in v4.",
+            "message_id": "c10"
+          }
+        ]
+      },
+      {
+        "id": "sec-6-4-data-residency",
+        "heading": "§6.4 Data Residency",
+        "text": "Customers may elect an EU-only data residency option. Where elected, customer data shall not be replicated outside the elected region. Backups shall be encrypted at rest and region-locked. An explicit reference to the Data Processing Agreement (Schedule C) is included. (§6.4(c) backup language incorporated in v4 — pending Northwind confirmation.)",
+        "redlines": [
+          {
+            "proposed_text": "Add EU-only election option and explicit guarantee that customer data is not replicated outside the elected region.",
+            "proposed_by": "Priya Raman (Hartwell)",
+            "status": "open",
+            "message_id": "c3"
+          },
+          {
+            "proposed_text": "EU-only residency committed; cross-region replication prohibited; backup language (encrypted at rest, region-locked) to be added via Northwind standard rider.",
+            "proposed_by": "Sarah Chen (Northwind)",
+            "status": "open",
+            "message_id": "c4"
+          },
+          {
+            "proposed_text": "EU-only election with cross-region replication prohibition incorporated; DPA reference added; §6.4(c) encrypted-at-rest / region-locked backup language drafted in v4.",
+            "proposed_by": "Priya Raman (Hartwell)",
+            "status": "open",
+            "message_id": "c10"
+          }
+        ],
+        "comments": [
+          {
+            "author": "Sarah Chen",
+            "text": "EU-only is straightforward; Marcus to pull standard rider for encrypted-at-rest / region-locked backup language.",
+            "message_id": "c4"
+          },
+          {
+            "author": "Priya Raman",
+            "text": "Please confirm §6.4(c) backup language reads correctly on Northwind's end before treating as closed.",
+            "message_id": "c10"
+          },
+          {
+            "author": "Priya Raman",
+            "text": "Need to lock data residency this week to keep procurement on track.",
+            "message_id": "c11"
+          }
+        ]
+      },
+      {
+        "id": "sec-auto-renewal",
+        "heading": "Auto-Renewal",
+        "text": "The Agreement shall auto-renew annually unless either party provides written notice of non-renewal during the annual opt-out window.",
+        "redlines": [],
+        "comments": [
+          {
+            "author": "Marcus Webb",
+            "text": "Auto-renewal language softened in v3 to include an annual opt-out window, per discussion on Friday's call.",
+            "message_id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "schedule-b-sla-credit-cap",
+        "heading": "SLA Credit Cap (Schedule B)",
+        "text": "SLA credit cap provisions have been moved out of the body of the MSA and into Schedule B.",
+        "redlines": [],
+        "comments": [
+          {
+            "author": "Marcus Webb",
+            "text": "SLA credit cap pulled into Schedule B in v3 — no substantive pushback received from Hartwell.",
+            "message_id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "subprocessor-list",
+        "heading": "Subprocessor List",
+        "text": "The subprocessor list is maintained at a referenced URL and may be updated by Northwind without requiring contract amendment.",
+        "redlines": [],
+        "comments": [
+          {
+            "author": "Marcus Webb",
+            "text": "Subprocessor list moved to a referenced URL in v3 so it can be updated without re-papering — no substantive pushback received.",
+            "message_id": "c1"
+          }
+        ]
+      }
+    ],
+    "open_items": [
+      {
+        "description": "§11.2 Indemnification cap: Northwind has not responded to Hartwell's renewed push for 2x annual fees. Sarah Chen asked to provide a final position by Wednesday 2026-04-29.",
+        "waiting_on": "Sarah Chen"
+      },
+      {
+        "description": "§6.4(c) Data residency backup language: Priya incorporated text in v4 but Northwind must confirm it reads correctly before the clause can be treated as closed.",
+        "waiting_on": "Sarah Chen"
+      },
+      {
+        "description": "EU data-residency standard rider: Marcus committed to pulling Northwind's standard rider for region-locked backup language; not yet provided.",
+        "waiting_on": "Marcus Webb"
+      },
+      {
+        "description": "DPA Schedule C: Attached by Priya in v4 but no confirmation of review or acceptance from Northwind.",
+        "waiting_on": "Sarah Chen"
+      },
+      {
+        "description": "Wind-down fee waiver trigger (§14): Hartwell tightened the waiver trigger to 'material and uncured' failures >30 days in v4; Northwind has not explicitly accepted this tightened language.",
+        "waiting_on": "Sarah Chen"
+      }
+    ],
+    "version_history": [
+      {
+        "version": 3,
+        "date": "2026-04-14",
+        "summary": "Northwind issued v3 with softened auto-renewal (annual opt-out window), SLA credit cap moved to Schedule B, and subprocessor list moved to referenced URL."
+      },
+      {
+        "version": 3.1,
+        "date": "2026-04-17",
+        "summary": "Hartwell returned v3 with redlines (v3-HW): pushed indemnification cap to 2x, required termination for convenience, and required EU-only data residency with cross-region replication prohibition."
+      },
+      {
+        "version": 4,
+        "date": "2026-04-24",
+        "summary": "Priya drafted v4 incorporating Northwind's TFC structure (post-Y1, 180-day notice, 50% wind-down fee with tightened 'material and uncured >30 days' waiver trigger) and EU-only data residency with DPA Schedule C. Indemnification cap remains open at 1.5x in the draft; Hartwell is pushing for 2x."
+      }
+    ]
+  },
+  "meta": {
+    "model": "claude-sonnet-4-6",
+    "classify_latency_ms": 4404,
+    "extract_latency_ms": 49720,
+    "cached": false,
+    "cached_at": "2026-05-07T21:36:00.803Z"
+  }
+}

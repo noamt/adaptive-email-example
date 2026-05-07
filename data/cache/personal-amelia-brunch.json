@@ -1,0 +1,17 @@
+{
+  "classification": {
+    "workspace": "PlainThreadView",
+    "rationale": "This is a brief personal scheduling ping between two friends — no document, no deal, no structured event planning. Applying any richer workspace would be over-structuring per respect_minimal_threads.",
+    "constraints_applied": [
+      "respect_minimal_threads"
+    ]
+  },
+  "state": null,
+  "meta": {
+    "model": "claude-sonnet-4-6",
+    "classify_latency_ms": 2327,
+    "extract_latency_ms": null,
+    "cached": false,
+    "cached_at": "2026-05-07T21:35:09.053Z"
+  }
+}

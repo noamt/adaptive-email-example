@@ -1,0 +1,158 @@
+{
+  "classification": {
+    "workspace": "DealView",
+    "rationale": "This thread documents an evolving sales process with multiple stakeholders, stage progression from eval to commercials, and active pricing negotiation — not a contract document with redlines, so DealView is appropriate over ContractView. The security questionnaire attachment is a process artifact, not a contract with clause-level redlines, so prefer_document_over_thread_when_redlines_present does not trigger. Open blockers with owners (Raj on pricing, Erin on infosec), a sentiment drop flagged by Ben in s12, and the counterparty's last pricing ask all need to be surfaced per extract_blockers_with_owners, flag_sentiment_drops, and surface_counterparty_last_ask.",
+    "constraints_applied": [
+      "surface_open_items_at_top",
+      "surface_counterparty_last_ask",
+      "extract_blockers_with_owners",
+      "flag_sentiment_drops",
+      "prefer_document_over_thread_when_redlines_present"
+    ]
+  },
+  "state": {
+    "account_name": "Mercer & Vail",
+    "stage": "stalled",
+    "stage_rationale": "Two parallel blockers — Raj has not responded to Alex's pricing structures offered on 2026-04-11, and Erin's security review queue is 2–3 weeks with an incomplete package — have halted forward progress as of Ben's transparency note on 2026-04-22.",
+    "top_actions": [
+      {
+        "title": "Get Raj's response on pricing counter-structures",
+        "detail": "Raj rejected $180k on 2026-04-10 but has not replied to the usage-based or phased options presented on 2026-04-11; deal is blocked on his decision.",
+        "owner": "Raj Mehta",
+        "due": null
+      },
+      {
+        "title": "Deliver complete security package to Erin",
+        "detail": "SOC 2 Type II, subprocessor list, pen test summary, completed questionnaire, and EU/UK residency controls must be submitted before Erin's 2–3 week review clock starts.",
+        "owner": "Alex Reyes",
+        "due": null
+      },
+      {
+        "title": "Book 30-min pricing call with Raj and Lisa",
+        "detail": "Alex proposed this call on 2026-04-11 to walk through both pricing structures but no meeting has been confirmed.",
+        "owner": "Alex Reyes",
+        "due": null
+      },
+      {
+        "title": "Confirm eval completion and sign-off",
+        "detail": "The 3-week eval started ~2026-03-22; results were positive at week 1 but no formal close-out or success criteria sign-off has been recorded.",
+        "owner": "Ben Cole",
+        "due": null
+      },
+      {
+        "title": "Align on revised close timeline given delays",
+        "detail": "Ben flagged on 2026-04-22 that Q2 close is at risk; a revised target date needs to be agreed with Lisa and Raj to preserve forecast integrity.",
+        "owner": "Alex Reyes",
+        "due": null
+      }
+    ],
+    "stakeholders": [
+      {
+        "name": "Ben Cole",
+        "company": "Mercer & Vail",
+        "role": "champion",
+        "sentiment": "positive",
+        "last_active": "2026-04-22"
+      },
+      {
+        "name": "Lisa Park",
+        "company": "Mercer & Vail",
+        "role": "economic buyer / sponsor",
+        "sentiment": "positive",
+        "last_active": "2026-04-08"
+      },
+      {
+        "name": "Raj Mehta",
+        "company": "Mercer & Vail",
+        "role": "economic buyer / budget gatekeeper",
+        "sentiment": "negative",
+        "last_active": "2026-04-10"
+      },
+      {
+        "name": "Erin Schulz",
+        "company": "Mercer & Vail",
+        "role": "security gatekeeper",
+        "sentiment": "neutral",
+        "last_active": "2026-04-15"
+      },
+      {
+        "name": "Alex Reyes",
+        "company": "Northwind AI",
+        "role": "AE / deal owner",
+        "sentiment": "positive",
+        "last_active": "2026-04-11"
+      },
+      {
+        "name": "Dana Pham",
+        "company": "Northwind AI",
+        "role": "SE / technical evaluator lead",
+        "sentiment": "positive",
+        "last_active": "2026-03-22"
+      }
+    ],
+    "open_blockers": [
+      {
+        "description": "Raj has not responded to the usage-based (~$120k floor) or phased ($130k Year 1) pricing structures offered on 2026-04-11; original $180k ACV was rejected as roughly double their benchmarked band of $90–110k.",
+        "raised_by": "Raj Mehta",
+        "raised_on": "2026-04-10",
+        "status": "open"
+      },
+      {
+        "description": "Security review requires a complete package (SOC 2 Type II, subprocessors, pen test, questionnaire, EU/UK data residency) before Erin will start her 2–3 week review; package has not yet been submitted.",
+        "raised_by": "Erin Schulz",
+        "raised_on": "2026-04-15",
+        "status": "open"
+      },
+      {
+        "description": "Ben flagged that security backlog from Q1 audit is adding further delay beyond the standard queue, putting the stated Q2 decision timeline at risk.",
+        "raised_by": "Ben Cole",
+        "raised_on": "2026-04-22",
+        "status": "open"
+      }
+    ],
+    "next_step": {
+      "description": "Alex to submit the complete security package to Erin and simultaneously push Ben to lock in a 30-minute pricing call with Raj and Lisa this week to unblock the commercial conversation.",
+      "owner": "Alex Reyes",
+      "due": null
+    },
+    "key_moments": [
+      {
+        "date": "2026-03-18",
+        "summary": "Discovery call yielded clear, prioritized decision criteria (lineage > ops burden > cost) and a Q2 close commitment — deal entered structured eval with high mutual alignment.",
+        "sentiment_delta": 1
+      },
+      {
+        "date": "2026-03-28",
+        "summary": "Ben reported lineage replay worked out of the box on the order-events stream — the core pain point was resolved in week 1, building strong champion conviction.",
+        "sentiment_delta": 1
+      },
+      {
+        "date": "2026-04-01",
+        "summary": "Lisa Park (VP) proactively entered the thread and signaled readiness to run commercials in parallel with eval, indicating executive sponsorship.",
+        "sentiment_delta": 1
+      },
+      {
+        "date": "2026-04-10",
+        "summary": "CFO Raj Mehta entered and rejected the $180k ACV as nearly double the benchmarked band, introducing a hard price anchor and a new decision-maker not previously in the deal.",
+        "sentiment_delta": -1
+      },
+      {
+        "date": "2026-04-15",
+        "summary": "Erin Schulz (infosec) introduced a formal security review process with a 2–3 week queue, adding a previously unknown gate before any commitment can be made.",
+        "sentiment_delta": -1
+      },
+      {
+        "date": "2026-04-22",
+        "summary": "Ben proactively disclosed that both pricing and security are unresolved and that Q2 timing is in jeopardy — deal is stalled on two simultaneous blockers.",
+        "sentiment_delta": -1
+      }
+    ]
+  },
+  "meta": {
+    "model": "claude-sonnet-4-6",
+    "classify_latency_ms": 5926,
+    "extract_latency_ms": 24756,
+    "cached": false,
+    "cached_at": "2026-05-07T21:35:37.334Z"
+  }
+}

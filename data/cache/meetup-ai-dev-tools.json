@@ -1,0 +1,149 @@
+{
+  "classification": {
+    "workspace": "EventView",
+    "rationale": "This thread is coordinating a real-world meetup with substantive structure: a negotiated date (May 21), a confirmed venue (Mission Workshop), a run-of-show (doors 6pm, Sam talk 6:30, Theo LT 7:30, social 7:45–9), named attendees with logistics (Jess's arrival, dietary needs), and an open deadline (dietary list to Maya by May 18). That easily clears the EventView threshold. The respect_minimal_threads constraint doesn't apply here given the structural complexity, and surface_open_items_at_top and extract_blockers_with_owners apply to surface pending items like Sam's abstract and the dietary roster.",
+    "constraints_applied": [
+      "respect_minimal_threads",
+      "surface_open_items_at_top",
+      "extract_blockers_with_owners"
+    ]
+  },
+  "state": {
+    "title": "AI Dev Tools Meetup — May 21",
+    "status": "confirmed",
+    "status_rationale": "Date (May 21) and venue (Mission Workshop) are both locked in per Iris's instruction to Mara to confirm with Maya and Maya's confirmation of availability.",
+    "current_plan": {
+      "date": "2026-05-21",
+      "time": "6:00–9:00pm",
+      "location": "Mission Workshop, San Francisco",
+      "format": "Talks + social",
+      "capacity": 28
+    },
+    "schedule": [
+      {
+        "time": "6:00",
+        "item": "Doors open"
+      },
+      {
+        "time": "6:30",
+        "item": "Sam Hartman — 'Agent Observability' talk (20 min) + Q&A (10 min)"
+      },
+      {
+        "time": "7:30",
+        "item": "Theo Park — Lightning talk on lineage primitives (10 min)"
+      },
+      {
+        "time": "7:45",
+        "item": "Social / open networking to close"
+      },
+      {
+        "time": "9:00",
+        "item": "End"
+      }
+    ],
+    "attendees": [
+      {
+        "name": "Iris ten Teije",
+        "role": "organizer",
+        "status": "confirmed",
+        "note": "Lead organizer; handling invites, RSVP collection, and dietary roster."
+      },
+      {
+        "name": "Mara Yi",
+        "role": "organizer",
+        "status": "confirmed",
+        "note": "Venue liaison; needs to formally confirm booking with Maya and send dietary list by May 18."
+      },
+      {
+        "name": "Theo Park",
+        "role": "speaker",
+        "status": "confirmed",
+        "note": "10-min lightning talk on lineage primitives at 7:30. Had visa appointment conflict on May 14 — now resolved with May 21 date."
+      },
+      {
+        "name": "Sam Hartman",
+        "role": "speaker",
+        "status": "confirmed",
+        "note": "20-min talk on agent observability + 10-min Q&A at 6:30. Has a custom HDMI dongle situation — asked to bring his own as backup. Title/abstract due to Iris by Friday May 8."
+      },
+      {
+        "name": "Maya Singh",
+        "role": "venue contact",
+        "status": "confirmed",
+        "note": "Mission Workshop contact. Dietary needs deadline: Mon May 18. Hard cap: 28 people (fire code). $850 venue fee."
+      },
+      {
+        "name": "Jess Tan",
+        "role": "attendee",
+        "status": "maybe",
+        "note": "Flying in from NYC; flight lands SFO 5:30pm — likely late arrival, expected around 7:00–7:15pm at earliest. Vegetarian — must be included in dietary list sent to Maya by May 18."
+      }
+    ],
+    "decisions_log": [
+      {
+        "question": "Which date to hold the meetup?",
+        "resolution": "May 21 — May 14 ruled out by Theo's visa appointment; May 21 preferred by Theo and accepted by all.",
+        "decided_on": "2026-05-02"
+      },
+      {
+        "question": "Which venue?",
+        "resolution": "Mission Workshop — confirmed available for May 21 at $850 for the evening.",
+        "decided_on": "2026-05-04"
+      },
+      {
+        "question": "Who speaks and in what format?",
+        "resolution": "Sam Hartman (20+10 min on agent observability) + Theo Park (10-min lightning talk on lineage primitives), followed by social.",
+        "decided_on": "2026-05-05"
+      },
+      {
+        "question": "Whether to arrange catering through Mission Workshop's partner?",
+        "resolution": null,
+        "decided_on": null
+      },
+      {
+        "question": "Budget approval for $850 venue fee?",
+        "resolution": "Approved — Iris confirmed it fits team budget.",
+        "decided_on": "2026-05-05"
+      }
+    ],
+    "top_actions": [
+      {
+        "title": "Formally confirm Mission Workshop booking with Maya",
+        "detail": "Iris instructed Mara to lock it in but no confirmation to Maya has been sent yet in the thread.",
+        "owner": "Mara Yi",
+        "due": null
+      },
+      {
+        "title": "Sam Hartman: send talk title & abstract",
+        "detail": "Needed to publish the event invite; Sam committed to delivering by Friday May 8.",
+        "owner": "Sam Hartman",
+        "due": "2026-05-08"
+      },
+      {
+        "title": "Send dietary list to Maya by May 18 deadline",
+        "detail": "At least one vegetarian (Jess Tan) confirmed; full RSVP list needed first to compile complete roster.",
+        "owner": "Mara Yi",
+        "due": "2026-05-18"
+      },
+      {
+        "title": "Collect RSVPs and compile invite list",
+        "detail": "Iris planned to send invites and gather RSVPs to build the dietary roster; not yet done as of last message.",
+        "owner": "Iris ten Teije",
+        "due": null
+      },
+      {
+        "title": "Decide on catering",
+        "detail": "Mission Workshop has a catering partner available but the team hasn't confirmed whether to use it.",
+        "owner": "Iris ten Teije",
+        "due": "2026-05-18"
+      }
+    ]
+  },
+  "meta": {
+    "model": "claude-sonnet-4-6",
+    "classify_latency_ms": 4752,
+    "extract_latency_ms": 23380,
+    "cached": false,
+    "cached_at": "2026-05-07T21:35:34.683Z"
+  }
+}

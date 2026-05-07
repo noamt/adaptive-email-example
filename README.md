@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Adaptive Inbox
 
-## Getting Started
+An inbox where layout reflects the *kind of work* a thread represents, not the
+fact that it arrived as email. The same set of messages renders as a document
+workspace, a deal dashboard, an event-planning view, or a plain thread —
+chosen by an LLM and constrained by developer-defined rules visible in the
+right-hand "Differ" panel.
 
-First, run the development server:
+Hackathon-scope prototype. Three rich workspaces (`ContractView`, `DealView`,
+`EventView`) plus a `PlainThreadView` fallback. Four seeded threads.
+
+## Setup
 
 ```bash
+npm install
+cp .env.local.example .env.local   # then add your ANTHROPIC_API_KEY
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The first click on each thread runs two LLM calls (classify + extract) and may
+take 20–40s. Results are cached on disk under `data/cache/`, so subsequent
+clicks are instant. To force a fresh run on one thread, hit "Re-run" in the
+Differ panel; to wipe everything, `rm data/cache/*.json`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Architecture
 
-## Learn More
+- **`lib/threads.ts`** — hand-authored thread fixtures.
+- **`lib/constraints.ts`** — developer-defined rules the model must obey and
+  cite. Visible in the Differ panel.
+- **`lib/schemas.ts`** — Zod runtime validators + JSON schemas the LLM sees
+  for each workspace's structured output.
+- **`lib/prompts.ts`** — classify and extract prompts.
+- **`app/api/interpret/route.ts`** — proxy that runs the two LLM calls,
+  validates against the matching schema, falls back to `PlainThreadView` on
+  validation failure, caches the result on disk.
+- **`components/workspaces/`** — one component per workspace.
+- **`components/open-items-banner.tsx`** — shared "open items at top" surface
+  that renders consistently across all rich workspaces (per the
+  `surface_open_items_at_top` constraint).
+- **`components/differ-panel.tsx`** — collapsible developer panel showing
+  active constraints, the model's chosen workspace + rationale, and the
+  extracted structured state.
 
-To learn more about Next.js, take a look at the following resources:
+## Seeded threads
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Thread | Workspace | What it tests |
+|---|---|---|
+| Hartwell MSA | `ContractView` | Multi-version contract with redlines on three clauses |
+| Mercer & Vail eval | `DealView` | Multi-stakeholder sales process, currently stalled |
+| AI dev tools meetup | `EventView` | Date negotiation, venue swap, RSVPs, run-of-show |
+| Saturday brunch? | `PlainThreadView` | The system declining to over-structure |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Adding a new workspace
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Add a `WorkspaceKind` entry in `lib/types.ts`.
+2. Add a Zod schema and matching JSON schema in `lib/schemas.ts`.
+3. Update `CLASSIFY_SYSTEM` and `extractSystem` in `lib/prompts.ts` to teach
+   the LLM about the new workspace.
+4. Add the case in `app/api/interpret/route.ts` (`extract` function).
+5. Build a component under `components/workspaces/`.
+6. Wire it into `app/page.tsx` and the toolbar `LABEL` map.
