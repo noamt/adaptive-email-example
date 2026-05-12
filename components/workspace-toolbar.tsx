@@ -28,7 +28,7 @@ export function WorkspaceToolbar({
   const workspaceReady = workspace !== null && workspace !== "PlainThreadView";
 
   return (
-    <div className="flex items-center justify-between border-b border-zinc-200 bg-white/80 px-4 py-2 backdrop-blur">
+    <div className="flex h-[44px] shrink-0 items-center justify-between border-b border-zinc-200 bg-white/80 px-4 backdrop-blur">
       <div className="flex items-center gap-2.5">
         {loading ? (
           <>

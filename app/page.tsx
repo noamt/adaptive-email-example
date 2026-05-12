@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { InboxList } from "@/components/inbox-list";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { InboxList, type InboxMode } from "@/components/inbox-list";
 import { DifferPanel } from "@/components/differ-panel";
 import { WorkspaceToolbar } from "@/components/workspace-toolbar";
 import { ContractView } from "@/components/workspaces/contract-view";
@@ -26,6 +26,40 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [view, setView] = useState<ViewMode>("workspace");
   const [differCollapsed, setDifferCollapsed] = useState(false);
+  const [inboxMode, setInboxMode] = useState<InboxMode>("today");
+  const [leftWidth, setLeftWidth] = useState(300);
+  const dragStateRef = useRef<{ startX: number; startWidth: number } | null>(
+    null,
+  );
+
+  const startDrag = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      dragStateRef.current = { startX: e.clientX, startWidth: leftWidth };
+      document.body.style.cursor = "col-resize";
+      document.body.style.userSelect = "none";
+
+      const onMove = (ev: MouseEvent) => {
+        if (!dragStateRef.current) return;
+        const delta = ev.clientX - dragStateRef.current.startX;
+        const next = Math.min(
+          520,
+          Math.max(220, dragStateRef.current.startWidth + delta),
+        );
+        setLeftWidth(next);
+      };
+      const onUp = () => {
+        dragStateRef.current = null;
+        document.body.style.cursor = "";
+        document.body.style.userSelect = "";
+        window.removeEventListener("mousemove", onMove);
+        window.removeEventListener("mouseup", onUp);
+      };
+      window.addEventListener("mousemove", onMove);
+      window.addEventListener("mouseup", onUp);
+    },
+    [leftWidth],
+  );
 
   const fetchInterpretation = useCallback(
     async (threadId: string, forceRefresh = false) => {
@@ -69,18 +103,28 @@ export default function Home() {
 
   return (
     <div
-      className="grid h-screen overflow-hidden transition-[grid-template-columns] duration-200"
+      className="grid h-screen overflow-hidden"
       style={{
         gridTemplateColumns: differCollapsed
-          ? "300px 1fr 44px"
-          : "300px 1fr 360px",
+          ? `${leftWidth}px 1fr 44px`
+          : `${leftWidth}px 1fr 360px`,
       }}
     >
-      <aside className="overflow-hidden border-r border-zinc-200">
+      <aside className="relative overflow-hidden border-r border-zinc-200">
         <InboxList
           threads={THREADS}
           selectedId={selectedId}
           onSelect={setSelectedId}
+          mode={inboxMode}
+          onMode={setInboxMode}
+        />
+        {/* Resize handle — narrow strip on the right edge */}
+        <div
+          role="separator"
+          aria-label="Resize inbox panel"
+          aria-orientation="vertical"
+          onMouseDown={startDrag}
+          className="absolute right-0 top-0 z-10 h-full w-1 cursor-col-resize bg-transparent transition-colors hover:bg-indigo-500/30"
         />
       </aside>
 
@@ -125,6 +169,7 @@ export default function Home() {
           onRerun={() => selectedId && fetchInterpretation(selectedId, true)}
           collapsed={differCollapsed}
           onToggleCollapsed={() => setDifferCollapsed((v) => !v)}
+          inboxMode={inboxMode}
         />
       </aside>
     </div>

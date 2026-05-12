@@ -2,7 +2,27 @@
 
 import { useState } from "react";
 import { CONSTRAINTS, CONSTRAINTS_BY_ID } from "@/lib/constraints";
+import type { InboxMode } from "@/components/inbox-list";
 import type { InterpretationResult } from "@/lib/types";
+
+const USER_MODEL_SIGNALS: { label: string; detail: string }[] = [
+  {
+    label: "Meetup threads",
+    detail: "responds <15min · almost always the organizer",
+  },
+  {
+    label: "Legal / contract",
+    detail: "opens within 1h, rarely replies — observer, not driver",
+  },
+  {
+    label: "Sales threads",
+    detail: "opens <30% · no replies in last 6 weeks",
+  },
+  {
+    label: "Personal mail",
+    detail: "reads same-day · replies within hours",
+  },
+];
 
 export function DifferPanel({
   interpretation,
@@ -10,12 +30,14 @@ export function DifferPanel({
   onRerun,
   collapsed,
   onToggleCollapsed,
+  inboxMode,
 }: {
   interpretation: InterpretationResult | null;
   loading: boolean;
   onRerun: () => void;
   collapsed: boolean;
   onToggleCollapsed: () => void;
+  inboxMode: InboxMode;
 }) {
   const [stateOpen, setStateOpen] = useState(false);
 
@@ -80,6 +102,37 @@ export function DifferPanel({
       </div>
 
       <div className="flex-1 overflow-y-auto">
+        {/* User Model — only meaningful in adapted mode */}
+        <Section title="User Model">
+          {inboxMode === "day1" ? (
+            <Empty>
+              No behavioral signal yet — inbox starts with no user-specific
+              adaptation.
+            </Empty>
+          ) : (
+            <>
+              <div className="mb-2.5 font-mono text-[10px] text-zinc-500">
+                inferred from ~6 weeks of observed behavior
+              </div>
+              <ul className="space-y-2">
+                {USER_MODEL_SIGNALS.map((s) => (
+                  <li
+                    key={s.label}
+                    className="rounded-md border border-zinc-800 bg-zinc-900/40 px-3 py-2"
+                  >
+                    <div className="font-mono text-[11px] text-zinc-300">
+                      {s.label}
+                    </div>
+                    <div className="mt-0.5 text-[12px] leading-snug text-zinc-400">
+                      {s.detail}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </Section>
+
         {/* Section 1 — constraints */}
         <Section title="Developer Intent">
           <ul className="space-y-2.5">

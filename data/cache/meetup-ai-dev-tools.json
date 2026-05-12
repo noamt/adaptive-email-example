@@ -1,7 +1,7 @@
 {
   "classification": {
     "workspace": "EventView",
-    "rationale": "This thread is coordinating a real-world meetup with substantive structure: a negotiated date (May 21), a confirmed venue (Mission Workshop), a run-of-show (doors 6pm, Sam talk 6:30, Theo LT 7:30, social 7:45–9), named attendees with logistics (Jess's arrival, dietary needs), and an open deadline (dietary list to Maya by May 18). That easily clears the EventView threshold. The respect_minimal_threads constraint doesn't apply here given the structural complexity, and surface_open_items_at_top and extract_blockers_with_owners apply to surface pending items like Sam's abstract and the dietary roster.",
+    "rationale": "This thread is coordinating a real-world meetup with substantive structure: a negotiated date (May 21), a venue (Mission Workshop), a run-of-show (doors 6pm, talks at 6:30 and 7:30, social to 9), RSVPs, dietary needs, speaker commitments, and logistical deadlines — exactly the evolving plan state that EventView is designed to surface. The respect_minimal_threads constraint does not apply here because this is far beyond a one-off scheduling ping.",
     "constraints_applied": [
       "respect_minimal_threads",
       "surface_open_items_at_top",
@@ -11,7 +11,7 @@
   "state": {
     "title": "AI Dev Tools Meetup — May 21",
     "status": "confirmed",
-    "status_rationale": "Date (May 21) and venue (Mission Workshop) are both locked in per Iris's instruction to Mara to confirm with Maya and Maya's confirmation of availability.",
+    "status_rationale": "Date (May 21) and venue (Mission Workshop) are both locked in per m7 instruction to Mara to confirm with Maya, and the run-of-show has been agreed with speakers.",
     "current_plan": {
       "date": "2026-05-21",
       "time": "6:00–9:00pm",
@@ -34,7 +34,7 @@
       },
       {
         "time": "7:45",
-        "item": "Social / open networking to close"
+        "item": "Social to close"
       },
       {
         "time": "9:00",
@@ -46,94 +46,104 @@
         "name": "Iris ten Teije",
         "role": "organizer",
         "status": "confirmed",
-        "note": "Lead organizer; handling invites, RSVP collection, and dietary roster."
+        "note": "Lead organizer; collecting RSVPs and dietary list for Maya by May 18."
       },
       {
         "name": "Mara Yi",
         "role": "organizer",
         "status": "confirmed",
-        "note": "Venue liaison; needs to formally confirm booking with Maya and send dietary list by May 18."
+        "note": "Venue liaison; needs to formally confirm booking with Maya Singh."
       },
       {
         "name": "Theo Park",
         "role": "speaker",
         "status": "confirmed",
-        "note": "10-min lightning talk on lineage primitives at 7:30. Had visa appointment conflict on May 14 — now resolved with May 21 date."
+        "note": "10-min lightning talk on lineage primitives at 7:30."
       },
       {
         "name": "Sam Hartman",
         "role": "speaker",
         "status": "confirmed",
-        "note": "20-min talk on agent observability + 10-min Q&A at 6:30. Has a custom HDMI dongle situation — asked to bring his own as backup. Title/abstract due to Iris by Friday May 8."
+        "note": "20-min talk on agent observability + 10-min Q&A at 6:30. Has custom HDMI dongle; venue has standard dongles but he'll bring his own. Title/abstract due to Iris by Friday May 8."
+      },
+      {
+        "name": "Jess Tan",
+        "role": "attendee",
+        "status": "confirmed",
+        "note": "Flying in from NYC; flight lands SFO 5:30pm — expect late arrival, likely missing start of Sam's talk. Vegetarian — must be included in dietary list to Maya by May 18."
       },
       {
         "name": "Maya Singh",
         "role": "venue contact",
         "status": "confirmed",
-        "note": "Mission Workshop contact. Dietary needs deadline: Mon May 18. Hard cap: 28 people (fire code). $850 venue fee."
-      },
-      {
-        "name": "Jess Tan",
-        "role": "attendee",
-        "status": "maybe",
-        "note": "Flying in from NYC; flight lands SFO 5:30pm — likely late arrival, expected around 7:00–7:15pm at earliest. Vegetarian — must be included in dietary list sent to Maya by May 18."
+        "note": "Mission Workshop contact. Hard cap 28 ppl (fire code). Needs dietary requirements by Mon May 18 if catering ordered. Venue rate $850."
       }
     ],
     "decisions_log": [
       {
-        "question": "Which date to hold the meetup?",
-        "resolution": "May 21 — May 14 ruled out by Theo's visa appointment; May 21 preferred by Theo and accepted by all.",
+        "question": "Which date?",
+        "resolution": "May 21 — May 14 blocked by Theo's visa appointment; May 21 chosen.",
         "decided_on": "2026-05-02"
       },
       {
         "question": "Which venue?",
-        "resolution": "Mission Workshop — confirmed available for May 21 at $850 for the evening.",
+        "resolution": "Mission Workshop — available May 21, capacity confirmed for 25 (hard cap 28).",
         "decided_on": "2026-05-04"
       },
       {
-        "question": "Who speaks and in what format?",
-        "resolution": "Sam Hartman (20+10 min on agent observability) + Theo Park (10-min lightning talk on lineage primitives), followed by social.",
+        "question": "Budget for venue?",
+        "resolution": "$850 absorbed on team budget.",
         "decided_on": "2026-05-05"
       },
       {
-        "question": "Whether to arrange catering through Mission Workshop's partner?",
+        "question": "Speaker lineup?",
+        "resolution": "Sam Hartman (20-min agent observability talk) + Theo Park (10-min lightning talk on lineage primitives).",
+        "decided_on": "2026-05-05"
+      },
+      {
+        "question": "Run of show?",
+        "resolution": "6:00 doors, 6:30 Sam talk+Q&A, 7:30 Theo LT, 7:45 social to 9pm.",
+        "decided_on": "2026-05-05"
+      },
+      {
+        "question": "Order catering via Mission Workshop partner?",
         "resolution": null,
         "decided_on": null
       },
       {
-        "question": "Budget approval for $850 venue fee?",
-        "resolution": "Approved — Iris confirmed it fits team budget.",
-        "decided_on": "2026-05-05"
+        "question": "Sam Hartman talk title and abstract confirmed?",
+        "resolution": null,
+        "decided_on": null
       }
     ],
     "top_actions": [
       {
-        "title": "Formally confirm Mission Workshop booking with Maya",
-        "detail": "Iris instructed Mara to lock it in but no confirmation to Maya has been sent yet in the thread.",
+        "title": "Formally confirm booking with Mission Workshop",
+        "detail": "Mara was instructed to lock in the venue with Maya but no confirmation reply has appeared in the thread.",
         "owner": "Mara Yi",
         "due": null
       },
       {
         "title": "Sam Hartman: send talk title & abstract",
-        "detail": "Needed to publish the event invite; Sam committed to delivering by Friday May 8.",
+        "detail": "Needed so Iris can put it on the event invite; Sam committed to delivering by Friday.",
         "owner": "Sam Hartman",
         "due": "2026-05-08"
       },
       {
-        "title": "Send dietary list to Maya by May 18 deadline",
-        "detail": "At least one vegetarian (Jess Tan) confirmed; full RSVP list needed first to compile complete roster.",
-        "owner": "Mara Yi",
+        "title": "Decide on catering & collect dietary RSVPs",
+        "detail": "Must decide whether to use Mission Workshop's catering partner and send dietary needs (incl. Jess Tan vegetarian) to Maya by her May 18 deadline.",
+        "owner": "Iris ten Teije",
         "due": "2026-05-18"
       },
       {
-        "title": "Collect RSVPs and compile invite list",
-        "detail": "Iris planned to send invites and gather RSVPs to build the dietary roster; not yet done as of last message.",
+        "title": "Send invites and collect full RSVP list",
+        "detail": "Iris planned to send the invite list the day after m7 (May 6); no confirmation it went out, and RSVPs are needed to build the dietary roster.",
         "owner": "Iris ten Teije",
         "due": null
       },
       {
-        "title": "Decide on catering",
-        "detail": "Mission Workshop has a catering partner available but the team hasn't confirmed whether to use it.",
+        "title": "Send dietary roster to Maya Singh",
+        "detail": "Required by Maya's May 18 deadline if catering is ordered; depends on RSVPs being collected first.",
         "owner": "Iris ten Teije",
         "due": "2026-05-18"
       }
@@ -141,9 +151,9 @@
   },
   "meta": {
     "model": "claude-sonnet-4-6",
-    "classify_latency_ms": 4752,
-    "extract_latency_ms": 23380,
+    "classify_latency_ms": 4693,
+    "extract_latency_ms": 20870,
     "cached": false,
-    "cached_at": "2026-05-07T21:35:34.683Z"
+    "cached_at": "2026-05-12T17:20:29.893Z"
   }
 }
