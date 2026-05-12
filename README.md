@@ -20,9 +20,10 @@ npm run dev
 Open http://localhost:3000.
 
 The first click on each thread runs two LLM calls (classify + extract) and may
-take 20–40s. Results are cached on disk under `data/cache/`, so subsequent
-clicks are instant. To force a fresh run on one thread, hit "Re-run" in the
-Differ panel; to wipe everything, `rm data/cache/*.json`.
+take 20–40s. Results are cached on disk under `data/cache/` (gitignored — they
+are runtime artifacts, not source) so subsequent clicks are instant. To force
+a fresh run on one thread, hit "Re-run" in the Differ panel; to wipe
+everything, `rm data/cache/*.json`.
 
 ## Architecture
 

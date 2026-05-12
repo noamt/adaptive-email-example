@@ -41,3 +41,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# generated LLM cache — runtime artifacts, not source
+/data/cache/*.json
