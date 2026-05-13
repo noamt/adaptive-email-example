@@ -152,6 +152,17 @@ export default function Home() {
 
   const thread = selectedId ? THREADS_BY_ID[selectedId] : null;
   const workspace = interpretation?.classification.workspace ?? null;
+  // top_actions is shared across all rich workspace states (Contract / Deal /
+  // Event) so we can pluck it generically and pass to the reply context.
+  const topActions =
+    interpretation?.state &&
+    typeof interpretation.state === "object" &&
+    "top_actions" in interpretation.state
+      ? (interpretation.state as { top_actions?: unknown }).top_actions
+      : undefined;
+  const topActionsArray = Array.isArray(topActions)
+    ? (topActions as ContractState["top_actions"])
+    : undefined;
 
   return (
     <div
@@ -199,7 +210,7 @@ export default function Home() {
               onRetry={() => fetchInterpretation(thread.id, true)}
             />
           ) : view === "thread" ? (
-            <PlainThreadView thread={thread} />
+            <PlainThreadView thread={thread} topActions={topActionsArray} />
           ) : loading || !interpretation ? (
             <WorkspaceLoading />
           ) : workspace === "ContractView" && interpretation.state ? (
@@ -209,7 +220,7 @@ export default function Home() {
           ) : workspace === "EventView" && interpretation.state ? (
             <EventView state={interpretation.state as EventState} />
           ) : (
-            <PlainThreadView thread={thread} />
+            <PlainThreadView thread={thread} topActions={topActionsArray} />
           )}
         </div>
       </main>
