@@ -18,6 +18,32 @@ import type { InterpretationResult } from "@/lib/types";
 
 type ViewMode = "workspace" | "thread";
 
+// Client-side interpretation cache. Lives in-memory for fast in-session
+// navigation and is mirrored to localStorage so reloads don't re-burn
+// LLM calls. On serverless deployments where /tmp is per-container and
+// gets wiped on cold starts, this is the only cache that actually works
+// across requests for the same user.
+const CACHE_KEY = "adaptive-inbox-interpret-cache-v1";
+
+const readClientCache = (): Record<string, InterpretationResult> => {
+  if (typeof window === "undefined") return {};
+  try {
+    const raw = window.localStorage.getItem(CACHE_KEY);
+    return raw ? (JSON.parse(raw) as Record<string, InterpretationResult>) : {};
+  } catch {
+    return {};
+  }
+};
+
+const writeClientCache = (cache: Record<string, InterpretationResult>) => {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+  } catch {
+    /* quota exceeded or storage disabled — ignore */
+  }
+};
+
 export default function Home() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [interpretation, setInterpretation] =
@@ -31,6 +57,13 @@ export default function Home() {
   const dragStateRef = useRef<{ startX: number; startWidth: number } | null>(
     null,
   );
+
+  // Per-session cache. Starts empty on first render to keep SSR-safe;
+  // hydrated from localStorage on mount.
+  const clientCacheRef = useRef<Record<string, InterpretationResult>>({});
+  useEffect(() => {
+    clientCacheRef.current = readClientCache();
+  }, []);
 
   const startDrag = useCallback(
     (e: React.MouseEvent) => {
@@ -63,8 +96,23 @@ export default function Home() {
 
   const fetchInterpretation = useCallback(
     async (threadId: string, forceRefresh = false) => {
-      setLoading(true);
       setError(null);
+
+      // Client cache hit — return synchronously, no network, no loading flash.
+      if (!forceRefresh) {
+        const cached = clientCacheRef.current[threadId];
+        if (cached) {
+          setInterpretation({
+            ...cached,
+            meta: { ...cached.meta, cached: true },
+          });
+          setLoading(false);
+          return;
+        }
+      }
+
+      setLoading(true);
+      setInterpretation(null);
       try {
         const resp = await fetch("/api/interpret", {
           method: "POST",
@@ -77,6 +125,13 @@ export default function Home() {
         }
         const data = (await resp.json()) as InterpretationResult;
         setInterpretation(data);
+        // Mirror to client cache (in-memory + localStorage) so subsequent
+        // clicks of this thread don't hit the network or LLM again.
+        clientCacheRef.current = {
+          ...clientCacheRef.current,
+          [threadId]: data,
+        };
+        writeClientCache(clientCacheRef.current);
       } catch (err) {
         setError(err instanceof Error ? err.message : String(err));
         setInterpretation(null);
@@ -89,9 +144,6 @@ export default function Home() {
 
   useEffect(() => {
     if (selectedId) {
-      // Reset state for the new thread: clear stale interpretation, default to
-      // showing messages immediately while interpretation runs.
-      setInterpretation(null);
       setError(null);
       setView("thread");
       fetchInterpretation(selectedId);
